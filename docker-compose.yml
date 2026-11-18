@@ -1,0 +1,27 @@
+services:
+  api:
+    build: ./backend
+    container_name: printshop-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - printshop_data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  frontend:
+    build: ./frontend
+    container_name: printshop-dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      API_URL: http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  printshop_data:
