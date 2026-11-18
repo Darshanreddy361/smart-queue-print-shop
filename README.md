@@ -157,3 +157,4 @@ git push -u origin main
 ```
 
 The GitHub Actions workflow will build the backend and frontend Docker images. It does not publish them to a registry; configure registry login and `push: true` if you want published images.
+# smart_queue_print_shop
